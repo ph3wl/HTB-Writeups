@@ -20,15 +20,14 @@ Nmap scan printscreen result :
 
 Next, we enumerate (fuzzing) the port 80 using tools like gobuster and ffuf for directory listing.
 
-We are using both fuzzing scanner with same fuzzing list to compare the result. First we are using FFUF scanner for directory fuzzing with raft-medium-directories list :
-
+We are using both fuzzing scanner with same fuzzing list to compare the result.
+First we are using FFUF scanner for directory fuzzing with raft-medium-directories list.
 Fuzzing with FFuf printscreen result :
 
 <img width="1102" height="641" alt="fuffdirscan" src="https://github.com/user-attachments/assets/a206c685-778a-4f54-a1c4-5f30ffa7702d" />
 
 
-In second stage we are using Gobuster scanner for directory fuzzing with raft-medium-directories list :
-
+In second stage we are using Gobuster scanner for directory fuzzing with raft-medium-directories list.
 Fuzzing gobuster print screen result :
 
 <img width="1159" height="402" alt="gobuster" src="https://github.com/user-attachments/assets/8e30d7c3-f0fc-4d0d-94e3-4341d47c3e1e" />
@@ -44,11 +43,11 @@ But if we enter to security snapshot, which points to http://10.129.8.16/capture
 To test this, we can change this number, and monitor the results. In the case the object is invalid, we are redirected to the dashboard, however, 
 when we set the number to “0”, we are given a valid capture file that we are able to download.
 
-It shows us the captured packets information. Let’s download the Pcap file and open in wireshark. 
-
-
 <img width="1464" height="848" alt="wireshark" src="https://github.com/user-attachments/assets/762fa80d-b420-4df1-94cb-e47e8007efdf" />
 
+It shows us the captured packets information. Let’s download the Pcap file and open in wireshark. 
+
+<img width="1900" height="557" alt="website" src="https://github.com/user-attachments/assets/1a569526-c9f0-46a0-84ed-b784967a76a0" />
 
 To help hunt for interesting information, we open the “Statistics” menu, and launch the Protocol Hierarchy window. In it, we see there are FTP packets that were captured. 
 Since FTP is a clear-text protocol, we know there may be credentials captured that we can get. To check this, we set the display filter to “ftp”. 
