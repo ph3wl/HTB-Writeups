@@ -46,6 +46,7 @@ when we set the number to “0”, we are given a valid capture file that we are
 
 It shows us the captured packets information. Let’s download the Pcap file and open in wireshark. 
 
+
 <img width="1464" height="848" alt="wireshark" src="https://github.com/user-attachments/assets/762fa80d-b420-4df1-94cb-e47e8007efdf" />
 
 
