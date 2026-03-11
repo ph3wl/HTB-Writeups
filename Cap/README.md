@@ -47,20 +47,18 @@ when we set the number to “0”, we are given a valid capture file that we are
 
 It shows us the captured packets information. Let’s download the Pcap file and open in wireshark. 
 
-<img width="1900" height="557" alt="website" src="https://github.com/user-attachments/assets/1a569526-c9f0-46a0-84ed-b784967a76a0" />
-
 To help hunt for interesting information, we open the “Statistics” menu, and launch the Protocol Hierarchy window. In it, we see there are FTP packets that were captured. 
 Since FTP is a clear-text protocol, we know there may be credentials captured that we can get. To check this, we set the display filter to “ftp”. 
 Once we set the filter, within the first few packets, we see credentials for the nathan user. 
 Credentials: Nathan : Buck3tH4TF0RM3!
 
+<img width="1900" height="557" alt="website" src="https://github.com/user-attachments/assets/1a569526-c9f0-46a0-84ed-b784967a76a0" />
+
 This Pcap file has username and password for FTP service. Let’s use these credentials to login via SSH and read the user flag.
 
-
-
-```nathan@cap:~$ cat user.txt
+nathan@cap:~$ cat user.txt
 ce3f90fe646c14a033f2cff997f3b5c4
-```
+
 
 # Privilege Escalation
 
