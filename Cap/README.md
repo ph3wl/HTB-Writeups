@@ -56,7 +56,6 @@ Credentials: Nathan : Buck3tH4TF0RM3!
 
 This Pcap file has username and password for FTP service. Let’s use these credentials to login via SSH and read the user flag.
 
-<img width="537" height="59" alt="flag1" src="https://github.com/user-attachments/assets/365b3153-ff22-4a38-90dc-68ba93ffbec3" />
 
 
 ```nathan@cap:~$ cat user.txt
